@@ -1,0 +1,20 @@
+﻿@model EJ2CoreEditors.Controllers.DatePicker.DatePickerModelBinding
+<h3>Model bind from code behind Sample:</h3>
+<h5>This sample demonstrates the model bind from code behind using ViewBag and ViewData of DatePicker component</h5>
+<br />
+<div class="align">
+    <div>
+        <h5>Model binding using ViewBag</h5>
+        <ejs-datepicker id="datepick" width="250px" placeholder="Choose a Date" value="ViewBag.value"></ejs-datepicker>
+    </div>
+    <div>
+        <h5>Model binding using ViewData</h5>
+        <ejs-datepicker id="datepicker" width="250px" placeholder="Choose a Date" value=@ViewData["value"]></ejs-datepicker>
+    </div>
+</div>
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+</style>

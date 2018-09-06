@@ -1,0 +1,50 @@
+﻿<h3> Globalization: </h3>
+<h5>This sample demonstrates how to restrict the time values by using Min and Max property. Also, German culture is set to the TimePicker component.</h5>
+<br />
+<div class="align">
+        <ejs-timepicker id="timepick" value="@ViewBag.value" min="@ViewBag.minVal" max="@ViewBag.maxVal" width="200px"></ejs-timepicker>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        timepicker = document.getElementById('timepick').ej2_instances[0];
+        var L10n = ej.base.L10n;
+        L10n.load({
+            'de': {
+                'timepicker': { placeholder: 'Wählen Sie Zeit' }
+            }
+        });
+        loadCultureFiles('de');
+        timepicker.locale = 'de';
+    });
+
+    function loadCultureFiles(name) {
+        var files = ['ca-gregorian.json', 'numbers.json', 'timeZoneNames.json'];
+        if (name === 'ar') {
+            files.push('numberingSystems.json');
+        }
+        var loader = ej.base.loadCldr;
+        var loadCulture = function (prop) {
+            var val, ajax;
+            if (name === 'ar' && prop === files.length - 1) {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/supplemental/' + files[prop], 'GET', false);
+            } else {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/main/' + name + '/' + files[prop], 'GET', false);
+            }
+            ajax.onSuccess = function (value) {
+                val = value;
+            };
+            ajax.send();
+            loader(JSON.parse(val));
+        };
+        for (var prop = 0; prop < files.length; prop++) {
+            loadCulture(prop);
+        }
+    }
+</script>
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+</style>

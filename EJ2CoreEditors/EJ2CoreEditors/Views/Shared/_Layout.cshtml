@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EJ2CoreEditors</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        @* Syncfusion Essential JS 2 Styles *@
+        <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
+
+        @* Syncfusion Essential JS 2 Scripts *@
+        <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">EJ2CoreEditors</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ejs-sidebar id="sidebar-menu" width="200px" target=".maincontent" type="Push">
+        <e-content-template>
+            <!-- Sidebar content -->
+            <div>
+                <span id="close" class="e-btn close-btn">
+                    <span id="innerclose" class="e-icons close-icon"></span>
+                </span>
+            </div>
+            <div class="title-header" style="text-align:center">
+                <ul>
+                    <li class="sidebar-item" id="toggle">
+                        <span class="e-text" title="List Item 1">List Item 1</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <span class="e-text" title="List Item 2">List Item 2</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <span class="e-text" title="List Item 3">List Item 3</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <span class="e-text" title="List Item 4">List Item 4</span>
+                    </li>
+                    <li class="sidebar-item">
+                        <span class="e-text" title="List Item 5">List Item 5</span>
+                    </li>
+                </ul>
+            </div>
+        </e-content-template>
+    </ejs-sidebar>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - EJ2CoreEditors</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderBody()
+    @RenderSection("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
+    <script>
+        var win = window;
+        win.isManualResizeTrigger = true;
+        //Initialize the Sidebar after main content has been loaded in the child view page.
+        setTimeout(() => { win.dispatchEvent(new Event('resize')); }, 500);
+        document.addEventListener('DOMContentLoaded', function () {
+            sidebarInstance = document.getElementById("sidebar-menu").ej2_instances[0];
+            sidebarInstance.show();
+        });
+        document.getElementById('close').addEventListener('click', function () {
+            sidebarInstance = document.getElementById("sidebar-menu").ej2_instances[0];
+            sidebarInstance.hide();
+            var openbutton = document.createElement("span");
+            openbutton.setAttribute('class', 'open e-icons');
+            openbutton.setAttribute('id', 'openbutton');
+            var bodycontent = document.getElementById('body_content');
+            bodycontent.insertBefore(openbutton, bodycontent.firstChild);
+            openbutton.addEventListener('click', function () {
+                sidebarInstance.show();
+                openbutton.remove();
+            });
+        });
+
+    </script>
+    <style>
+        #sidebar-menu {
+            background: #007DD1;
+            color: white;
+        }
+
+        #innertext {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            margin-top: 100px;
+        }
+
+        .maincontent {
+            height: 100vh;
+        }
+
+        .sidebar-item {
+            list-style-type: none;
+            padding: 8px;
+            font-size: 15px;
+        }
+
+        .title-header ul {
+            padding: 0 !important;
+        }
+
+        .sidebar-item, .open {
+            cursor: pointer;
+        }
+
+        .title-header {
+            position: absolute;
+            top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .close-icon::before {
+            content: '\e945';
+        }
+
+        .close-btn, .close-btn:hover, .close-btn:active {
+            float: right;
+            background: transparent;
+            color: white;
+            box-shadow: none;
+        }
+
+        .e-sidebar.e-open + .mainelement {
+            padding: 25px 0 0 20px;
+        }
+
+        .e-sidebar.e-close + .mainelement {
+            padding-left: 20px;
+        }
+
+        .open::before {
+            content: '\e7ca';
+            font-size: 20px;
+        }
+
+        .open {
+            padding: 15px;
+            display: inline-block;
+        }
+    </style>
+</body>
+</html>

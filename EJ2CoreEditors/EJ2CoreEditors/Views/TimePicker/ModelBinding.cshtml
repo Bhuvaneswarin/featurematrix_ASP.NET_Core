@@ -1,0 +1,20 @@
+﻿@model EJ2CoreEditors.Controllers.TimePicker.TimePickerModelBinding
+<h3>Model bind from code behind Sample:</h3>
+<h5>This sample demonstrates the model bind from code behind using ViewBag and ViewData of TimePicker component</h5>
+<br />
+<div class="align">
+    <div>
+        <h5>Model binding using ViewBag</h5>
+        <ejs-timepicker id="timepick" width="250px" placeholder="Choose a time" value="ViewBag.value"></ejs-timepicker>
+    </div>
+    <div>
+        <h5>Model binding using ViewData</h5>
+        <ejs-timepicker id="timepicker" width="250px" placeholder="Choose a time" value=@ViewData["value"]></ejs-timepicker>
+    </div>
+</div>
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+</style>

@@ -1,0 +1,48 @@
+﻿@model EJ2CoreEditors.Controllers.TimePicker.TimeValue
+<h3> TimePickerFor Sample: </h3>
+<h5>This sample demonstrates the strongly typed extension support in TimePicker and time format has been set to the component by using format property. Time value is set to TimePicker from code behind and its set to TimePicker in view page by invoking the strongly typed TimePickerFor helper with the lambda expression.</h5>
+<br />
+<div class=" control-section">
+    <div id="wrapper" class="timepicker-section">
+        <div id="timepicker-control">
+            <form method="post">
+                <ejs-timepicker id="timepickerFor" name="value" format="HH:mm" ejs-for="@Model.value" placeholder="Select a Time" width="200px"></ejs-timepicker>
+                <div id="errorMessage">
+                    <span asp-validation-for="value"></span>
+                </div>
+                <div id="submitbutton">
+                    <ejs-button id="submitButton" content="Submit"></ejs-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #date_label {
+        display: block;
+        width: 248px;
+        color: rgba(0, 0, 0, 0.58);
+        margin-left: 5px;
+    }
+
+    #timepicker-control {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #wrapper {
+        max-width: 246px;
+        margin: 0px auto;
+    }
+
+    #submitbutton {
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    #errorMessage {
+        color: red;
+        text-align: center
+    }
+</style>

@@ -1,0 +1,89 @@
+﻿<h3>SetCulture sample: </h3>
+<h5> This sample demonstrates the setCulture properties of Picker's component.</h5>
+<br />
+<div class="align">
+    <ejs-calendar id="calendar" value="ViewBag.value"></ejs-calendar>
+</div>
+<div class="align1">
+    <ejs-datepicker id="datePick" value="ViewBag.value"></ejs-datepicker>
+</div>
+<div class="align1">
+    <ejs-daterangepicker id="dateRangePick" startDate="ViewBag.startDate" endDate="ViewBag.endDate"></ejs-daterangepicker>
+</div>
+<div class="align1">
+    <ejs-datetimepicker id="dateTimePick" value="ViewBag.value"></ejs-datetimepicker>
+</div>
+<div class="align1">
+    <ejs-timepicker id="timePick" value="ViewBag.value"></ejs-timepicker>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var L10n = ej.base.L10n;
+        L10n.load({
+            "de": {
+                'calendar': {
+                    today: "heute"
+                },
+                'datepicker': {
+                    placeholder: 'Wählen Sie ein Datum',
+                    today: 'heute'
+                },
+                'daterangepicker': {
+                    placeholder: 'Wählen Sie einen Bereich aus',
+                    startLabel: 'Wählen Sie Startdatum',
+                    endLabel: 'Wählen Sie Enddatum',
+                    applyText: 'Sich bewerben',
+                    cancelText: 'Stornieren',
+                    selectedDays: 'Ausgewählte Tage',
+                    days: 'Tage',
+                    stomRange: 'benutzerdefinierten Bereich',
+                    startDate: 'Anfangsdatum',
+                    endDate: 'Enddatum'
+                },
+                'datetimepicker': {
+                    placeholder: "Wählen Sie ein Datum und eine Uhrzeit aus",
+                    today: "heute"
+                },
+                'timepicker':
+                    {
+                        placeholder: 'Wählen Sie Zeit'
+                    }
+
+            }
+        });
+        loadCultureFiles('de');
+    });
+
+    function loadCultureFiles(name) {
+        var files = ['numbers.json', 'timeZoneNames.json', 'currencies.json', 'ca-gregorian.json'];
+        var loadCulture = function (prop) {
+            var val, ajax;
+
+            ajax = new ej.base.Ajax(location.origin + '/../../scripts/cldr-data/main/' + name + '/' + files[prop], 'GET', true);
+            ajax.onSuccess = function (value) {
+                val = value;
+                ej.base.loadCldr(JSON.parse(val));
+            };
+            ajax.send();
+            ej.base.setCulture('de');
+        };
+        for (var prop = 0; prop < files.length; prop++) {
+            loadCulture(prop);
+        }
+    }
+
+</script>
+
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+
+    .align1 {
+        margin: 0 auto;
+        width: 300px;
+        padding-top: 40px;
+    }
+</style>

@@ -1,0 +1,24 @@
+﻿@model EJ2CoreEditors.Controllers.TimePicker.TimePickerPostBack
+@{
+    ViewData["Title"] = "Form postback Sample";
+}
+@using (Html.BeginForm())
+{
+    <div id="date">
+        <ejs-timepicker id="datetime" name="Value" value="@Model.value" width="250px" placeholder="Choose a time"></ejs-timepicker>
+    </div>
+    <div id="submitbutton">
+        <ejs-button id="button" content="Submit" type="submit"></ejs-button>
+    </div>
+}
+<style>
+    #submitbutton {
+        margin-top: 20px;
+        margin-left: 150px;
+    }
+
+    #date {
+        margin-left: 100px;
+        margin-top: 50px;
+    }
+</style>

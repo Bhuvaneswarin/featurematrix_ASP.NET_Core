@@ -1,0 +1,57 @@
+﻿<h3> Globalization: </h3>
+<h5>This sample demonstrates how to disable specific dates in the Calendar by using renderDayCell event and how to restrict the date values by using Min and Max property. Also, German culture is set to the Calendar component.</h5>
+<br />
+<div class="align">
+        <ejs-calendar id="calendar" min="ViewBag.minDate" max="ViewBag.maxDate" renderDayCell="disableDate"></ejs-calendar>
+</div>
+
+<script>
+    function disableDate(args) {
+        if (args.date.getDay() === 0 || args.date.getDay() === 6) {
+            args.isDisabled = true;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        calendarObject = document.getElementById('calendar').ej2_instances[0];
+        var L10n = ej.base.L10n;
+
+        L10n.load({
+            "de": {
+                "calendar": {
+                    today: 'heute'
+                }
+            }
+        });
+        loadCultureFiles('de');
+        calendarObject.locale = 'de';
+    });
+    function loadCultureFiles(name) {
+        var files = ['ca-gregorian.json', 'numbers.json', 'timeZoneNames.json'];
+        if (name === 'ar') {
+            files.push('numberingSystems.json');
+        }
+        var loader = ej.base.loadCldr;
+        var loadCulture = function (prop) {
+            var val, ajax;
+            if (name === 'ar' && prop === files.length - 1) {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/supplemental/' + files[prop], 'GET', false);
+            } else {
+                ajax = new ej.base.Ajax(location.origin + location.pathname + '/../../scripts/cldr-data/main/' + name + '/' + files[prop], 'GET', false);
+            }
+            ajax.onSuccess = function (value) {
+                val = value;
+            };
+            ajax.send();
+            loader(JSON.parse(val));
+        };
+        for (var prop = 0; prop < files.length; prop++) {
+            loadCulture(prop);
+        }
+    }
+</script>
+<style>
+    .align {
+        margin: 0 auto;
+        width: 300px;
+    }
+</style>
